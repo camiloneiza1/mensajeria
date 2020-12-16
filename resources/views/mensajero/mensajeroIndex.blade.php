@@ -7,9 +7,9 @@
                     <h3>Lista de Mensajeros</h3>
                 </div>
                 <div class="col-1">
-                    <button class="btn btn-primary btn-sm">
+                    <a class="btn btn-primary btn-sm" href="{{ route('mensajero.create') }}">
                         <i class="fas fa-plus"></i>
-                    </button>
+                    </a>
                 </div>
             </div>
             
@@ -33,9 +33,9 @@
                         <td>{{ $mensajero['email'] }}</td>
                         <td>{{ $mensajero['fecha_nacimiento'] }}</td>
                         <td>
-                            <button class="btn btn-info btn-sm">
+                            <a class="btn btn-info btn-sm" href="{{ route('mensajero.edit', $mensajero['id']) }}">
                                 <i class="fas fa-edit"></i>
-                            </button>
+                            </a>
                         </td>
                         <td>
                             <button class="btn btn-danger btn-sm">
@@ -48,4 +48,10 @@
             </table>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        
+    </script>
 @endsection
