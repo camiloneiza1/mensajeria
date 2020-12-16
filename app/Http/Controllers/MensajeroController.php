@@ -26,7 +26,7 @@ class MensajeroController extends Controller
      */
     public function create()
     {
-        //
+        return view('mensajero.mensajeroCreate');
     }
 
     /**
@@ -37,7 +37,9 @@ class MensajeroController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Mensajero::create($request->all());
+
+        return redirect(route('mensajero.index'));
     }
 
     /**
@@ -59,7 +61,11 @@ class MensajeroController extends Controller
      */
     public function edit($id)
     {
-        //
+        $mensajero = Mensajero::find($id);
+
+        return view('mensajero.mensajeroEdit', [
+            'mensajero' => $mensajero
+        ]);
     }
 
     /**
@@ -71,7 +77,10 @@ class MensajeroController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $mensajero = Mensajero::find($id);
+        $mensajero->update($request->all());
+
+        return redirect(route('mensajero.index'));
     }
 
     /**
