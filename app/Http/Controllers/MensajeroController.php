@@ -14,7 +14,7 @@ class MensajeroController extends Controller
      */
     public function index(Request $request)
     {
-        $mensajeros = Mensajero::query()->get()->toArray();
+        $mensajeros = Mensajero::query()->paginate(8);
 
         return view('mensajero.mensajeroIndex', ['mensajeros' => $mensajeros]);
     }
@@ -37,9 +37,11 @@ class MensajeroController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validar($request);
+
         Mensajero::create($request->all());
 
-        return redirect(route('mensajero.index'));
+        return redirect()->route('mensajero.index')->with('success', 'Se creo correctamente el Mensajero');
     }
 
     /**
@@ -77,10 +79,12 @@ class MensajeroController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validar($request);
+
         $mensajero = Mensajero::find($id);
         $mensajero->update($request->all());
 
-        return redirect(route('mensajero.index'));
+        return redirect(route('mensajero.index'))->with('success', 'Se actualizo correctamente el Mensajero: '.$mensajero->nombre. ' '.$mensajero->apellido);
     }
 
     /**
@@ -91,6 +95,22 @@ class MensajeroController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $mensajero = Mensajero::find($id);
+        $mensajero->delete();
+
+        return response()->json(['message' => 'Se elimino con exito.']);
+    }
+
+    public function validar(Request $request)
+    {
+        $valid = $request->validate([
+            'documento_id' => 'required|min:5',
+            'nombre' => 'required',
+            'nombre' => 'required',
+            'email' => 'required|email',
+            'fecha_nacimiento' => 'date'
+        ]);
+
+        return $valid;
     }
 }

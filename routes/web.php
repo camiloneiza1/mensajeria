@@ -33,5 +33,7 @@ Route::post('/mensajeros/store', [MensajeroController::class, 'store'])->name('m
 //Edita un mensajero en la base de daros
 Route::put('/mensajeros/update/{id}', [MensajeroController::class, 'update'])->name('mensajero.update');
 
+//Eliminar un mensajero de la base de datos
+Route::delete('/mensajeros/{id}' , [MensajeroController::class, 'destroy'])->name('mensajero.destroy');
 
 
