@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\MensajeroController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,17 +16,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
+//-------------------------RUTAS MENSAJEROS-------------------------------
 //Consulta todos los mensajeros de la base de datos
 Route::get('/mensajeros', [MensajeroController::class, 'index'])->name('mensajero.index');
 
 //Mostrar formulario para crear
-Route::get('/mensajeros/create' , [MensajeroController::class, 'create'])->name('mensajero.create');
+Route::get('/mensajeros/create', [MensajeroController::class, 'create'])->name('mensajero.create');
 
 //Mostrar formulario para editar
-Route::get('/mensajeros/{id}' , [MensajeroController::class, 'edit'])->name('mensajero.edit');
+Route::get('/mensajeros/{id}', [MensajeroController::class, 'edit'])->name('mensajero.edit');
 
 //Crea un mensajero en la base de daros
 Route::post('/mensajeros/store', [MensajeroController::class, 'store'])->name('mensajero.store');
@@ -34,6 +36,24 @@ Route::post('/mensajeros/store', [MensajeroController::class, 'store'])->name('m
 Route::put('/mensajeros/update/{id}', [MensajeroController::class, 'update'])->name('mensajero.update');
 
 //Eliminar un mensajero de la base de datos
-Route::delete('/mensajeros/{id}' , [MensajeroController::class, 'destroy'])->name('mensajero.destroy');
+Route::delete('/mensajeros/{id}', [MensajeroController::class, 'destroy'])->name('mensajero.destroy');
 
 
+//-------------------------RUTAS CLIENTES-------------------------------
+//Consulta todos los clientes de la base de datos
+Route::get('/clientes', [ClienteController::class, 'index'])->name('cliente.index');
+
+//Mostrar formulario para crear
+Route::get('/clientes/create', [ClienteController::class, 'create'])->name('cliente.create');
+
+//Mostrar formulario para editar
+Route::get('/clientes/{id}', [ClienteController::class, 'edit'])->name('cliente.edit');
+
+//Crea un cliente en la base de daros
+Route::post('/clientes/store', [ClienteController::class, 'store'])->name('cliente.store');
+
+//Edita un cliente en la base de daros
+Route::put('/clientes/update/{id}', [ClienteController::class, 'update'])->name('cliente.update');
+
+//Eliminar un cliente de la base de datos
+Route::delete('/clientes/{id}', [ClienteController::class, 'destroy'])->name('cliente.destroy');
