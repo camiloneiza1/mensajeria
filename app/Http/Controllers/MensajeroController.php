@@ -106,7 +106,7 @@ class MensajeroController extends Controller
         $valid = $request->validate([
             'documento_id' => 'required|min:5',
             'nombre' => 'required',
-            'nombre' => 'required',
+            'apellido' => 'required',
             'email' => 'required|email',
             'fecha_nacimiento' => 'date'
         ]);
