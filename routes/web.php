@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\MensajeroController;
+use App\Http\Controllers\OrdenController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,3 +58,23 @@ Route::put('/clientes/update/{id}', [ClienteController::class, 'update'])->name(
 
 //Eliminar un cliente de la base de datos
 Route::delete('/clientes/{id}', [ClienteController::class, 'destroy'])->name('cliente.destroy');
+
+
+//-------------------------RUTAS ORDENES-------------------------------
+//Consulta todas las ordenes de la base de datos
+Route::get('/ordenes', [OrdenController::class, 'index'])->name('orden.index');
+
+//Mostrar formulario para crear
+Route::get('/ordenes/create', [OrdenController::class, 'create'])->name('orden.create');
+
+//Mostrar formulario para editar
+Route::get('/ordenes/{id}', [OrdenController::class, 'edit'])->name('orden.edit');
+
+//Crea un orden en la base de daros
+Route::post('/ordenes/store', [OrdenController::class, 'store'])->name('orden.store');
+
+//Edita un orden en la base de daros
+Route::put('/ordenes/update/{id}', [OrdenController::class, 'update'])->name('orden.update');
+
+//Eliminar un orden de la base de datos
+Route::delete('/ordenes/{id}', [OrdenController::class, 'destroy'])->name('orden.destroy');
