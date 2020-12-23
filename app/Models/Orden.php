@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Facade\FlareClient\Http\Client;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,7 +14,8 @@ class Orden extends Model
     protected $fillable = [
         "cliente_id",
         "mensajero_id",
-        "direccion",
+        "direccion_origen",
+        "direccion_destino",
         "fecha_hora",
         "costo"
     ];
