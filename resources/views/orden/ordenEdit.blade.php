@@ -18,9 +18,11 @@
         </a>
     </div>
     {!! Form::close() !!}
+    <input type="hidden" id="ruta_calculoCosto" value="{{ route('orden.calculaCosto') }}">
 </div>
 @endsection
 @section('scripts')
+{!! Html::script('js/orden/orden.js') !!}
 <script>
     $(function () {
         $('#fecha_hora').datetimepicker({

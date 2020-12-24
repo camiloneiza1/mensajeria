@@ -30,6 +30,7 @@
                     <th>Fecha</th>
                     <th>Cliente</th>
                     <th>Mensajero</th>
+                    <th>Km</th>
                     <th>Costo</th>
                     <th colspan="2" style="width: 50px">Opciones</th>
                 </tr>
@@ -49,6 +50,7 @@
                         <span class="badge {{ $orden['mensajero'] != null ? 'bg-primary' : 'bg-warning' }}">{{ $orden['mensajero'] != null ? $orden['mensajero']['documento_id'] : "Sin asignar" }}</span>
                         {{ $orden['mensajero'] != null ? $orden['mensajero']['nombre'].' '.$orden['mensajero']['apellido'] : "" }}
                     </td>
+                    <td>{{ $orden['km'] }}</td>
                     <td><span class="badge bg-success">$ {{ $orden['costo'] }}</span></td>
                     <td>
                         <a class="btn btn-info btn-sm" href="{{ route('orden.edit', $orden['id']) }}">

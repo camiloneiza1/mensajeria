@@ -17,7 +17,8 @@ class Orden extends Model
         "direccion_origen",
         "direccion_destino",
         "fecha_hora",
-        "costo"
+        "costo",
+        "km"
     ];
 
     public function cliente()

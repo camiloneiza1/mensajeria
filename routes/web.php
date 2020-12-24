@@ -67,6 +67,9 @@ Route::get('/ordenes', [OrdenController::class, 'index'])->name('orden.index');
 //Mostrar formulario para crear
 Route::get('/ordenes/create', [OrdenController::class, 'create'])->name('orden.create');
 
+//Mostrar formulario para crear
+Route::get('/ordenes/calculaCosto', [OrdenController::class, 'calculaCosto'])->name('orden.calculaCosto');
+
 //Mostrar formulario para editar
 Route::get('/ordenes/{id}', [OrdenController::class, 'edit'])->name('orden.edit');
 

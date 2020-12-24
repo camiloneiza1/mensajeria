@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cliente;
 use App\Models\Mensajero;
 use App\Models\Orden;
+use App\Models\RangoTarifa;
 use Illuminate\Http\Request;
 
 class OrdenController extends Controller
@@ -90,7 +91,7 @@ class OrdenController extends Controller
         $orden = Orden::find($id);
         $orden->update($request->all());
 
-        return redirect()->route('orden.index')->with('success', 'Se modifico correctamente la orden No. '.$id);
+        return redirect()->route('orden.index')->with('success', 'Se modifico correctamente la orden No. ' . $id);
     }
 
     /**
@@ -107,5 +108,14 @@ class OrdenController extends Controller
     public function validar(Request $request)
     {
         //
+    }
+
+    public function calculaCosto(Request $request)
+    {
+        $tarifa = RangoTarifa::where('km_ini', '<', $request->km)
+            ->where('km_fin', '>=', $request->km)
+            ->get()->toArray();
+        
+        return response()->json($tarifa);
     }
 }
