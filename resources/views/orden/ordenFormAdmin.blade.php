@@ -1,14 +1,14 @@
 <div class="row">
     <div class="col-md-2">
         <div class="form-group">
-            <label for="mensajero">Mensajero</label>
-            {!! Form::text('mensajero', null, ['id' => 'mensajero', 'placeholder' => 'Mensajero', 'class' => 'form-control']) !!}
+            <label for="mensajero_id">Mensajero</label>
+            {!! Form::select('mensajero_id', $mensajeros, null, ['id' => 'mensajero_id', 'class' => 'form-control']) !!}
         </div>
     </div>
     <div class="col-md-3">
         <div class="form-group">
-            <label for="cost">Costo</label>
-            {!! Form::number('cost', null, ['id' => 'cost', 'placeholder' => 'Costo', 'class' => 'form-control']) !!}
+            <label for="costo">Costo</label>
+            {!! Form::number('costo', null, ['id' => 'costo', 'placeholder' => 'Costo', 'class' => 'form-control']) !!}
         </div>
     </div>
 </div>

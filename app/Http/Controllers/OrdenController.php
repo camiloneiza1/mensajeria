@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
+use App\Models\Mensajero;
 use App\Models\Orden;
 use Illuminate\Http\Request;
 
@@ -26,7 +28,9 @@ class OrdenController extends Controller
      */
     public function create()
     {
-        return view('orden.ordenCreate');
+        $clientes = Cliente::select('id', 'nombre')->pluck('nombre', 'id');
+
+        return view('orden.ordenCreate', ['clientes' => $clientes]);
     }
 
     /**
@@ -37,7 +41,9 @@ class OrdenController extends Controller
      */
     public function store(Request $request)
     {
-       //
+        $orden = Orden::create($request->all());
+
+        return redirect()->route('orden.index')->with('success', 'Se creo exitosamente la Orden de envio!');
     }
 
     /**
@@ -59,7 +65,17 @@ class OrdenController extends Controller
      */
     public function edit($id)
     {
-        //
+        $clientes = Cliente::select('id', 'nombre')->pluck('nombre', 'id');
+
+        $mensajeros = Mensajero::select('id', 'nombre')->pluck('nombre', 'id');
+
+        $orden = Orden::find($id);
+
+        return view('orden.ordenEdit', [
+            'clientes' => $clientes,
+            'mensajeros' => $mensajeros,
+            'orden' => $orden
+        ]);
     }
 
     /**
@@ -71,7 +87,10 @@ class OrdenController extends Controller
      */
     public function update(Request $request, $id)
     {
-       //
+        $orden = Orden::find($id);
+        $orden->update($request->all());
+
+        return redirect()->route('orden.index')->with('success', 'Se modifico correctamente la orden No. '.$id);
     }
 
     /**
@@ -82,7 +101,7 @@ class OrdenController extends Controller
      */
     public function destroy($id)
     {
-       //
+        //
     }
 
     public function validar(Request $request)

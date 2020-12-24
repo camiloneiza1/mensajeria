@@ -19,10 +19,12 @@
     {!! Form::close() !!}
 </div>
 @endsection
-@section('script')
+@section('scripts')
 <script>
     $(function () {
-        $('#fecha_hora').datetimepicker();
+        $('#fecha_hora').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm'
+        });
     });
 </script>
 

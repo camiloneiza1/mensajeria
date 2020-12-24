@@ -28,8 +28,8 @@
     </div>
     <div class="col-md-2">
         <div class="form-group">
-            <label for="cliente">Cliente</label>
-            {!! Form::text('cliente', null, ['id' => 'cliente', 'class' => 'form-control']) !!}
+            <label for="cliente_id">Cliente</label>
+            {!! Form::select('cliente_id', $clientes, null, ['id' => 'cliente_id', 'class' => 'form-control']) !!}
         </div>
     </div>
 </div>

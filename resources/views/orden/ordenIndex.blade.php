@@ -24,6 +24,7 @@
         <table class="table table-stripped table-hover table-sm table-bordered">
             <thead class="table-dark">
                 <tr>
+                    <th>#</th>
                     <th>Origen</th>
                     <th>Destino</th>
                     <th>Fecha</th>
@@ -36,16 +37,17 @@
             <tbody>
                 @foreach ($ordenes as $orden)
                 <tr>
+                    <td>{{ $orden['id'] }}</td>
                     <td>{{ $orden['direccion_origen'] }}</td>
                     <td>{{ $orden['direccion_destino'] }}</td>
                     <td>{{ $orden['fecha_hora'] }}</td>
                     <td>
-                        <span class="badge bg-primary">{{$orden['cliente']['documento_id'] }}</span>
+                        <span class="badge bg-primary">{{ $orden['cliente']['documento_id'] }}</span>
                         {{ $orden['cliente']['nombre'] }}
                     </td>
                     <td>
-                        <span class="badge bg-primary">{{$orden['mensajero']['documento_id'] }}</span>
-                        {{ $orden['mensajero']['nombre'].' '.$orden['mensajero']['apellido'] }}
+                        <span class="badge {{ $orden['mensajero'] != null ? 'bg-primary' : 'bg-warning' }}">{{ $orden['mensajero'] != null ? $orden['mensajero']['documento_id'] : "Sin asignar" }}</span>
+                        {{ $orden['mensajero'] != null ? $orden['mensajero']['nombre'].' '.$orden['mensajero']['apellido'] : "" }}
                     </td>
                     <td><span class="badge bg-success">$ {{ $orden['costo'] }}</span></td>
                     <td>
