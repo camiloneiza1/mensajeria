@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mensajero;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class MensajeroController extends Controller
 {
@@ -16,18 +17,11 @@ class MensajeroController extends Controller
     {
         $mensajeros = Mensajero::query()->paginate(8);
 
-        return view('mensajero.mensajeroIndex', ['mensajeros' => $mensajeros]);
+        return response()->json($mensajeros);
+
+        //return view('mensajero.mensajeroIndex', ['mensajeros' => $mensajeros]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('mensajero.mensajeroCreate');
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -37,23 +31,17 @@ class MensajeroController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validar($request);
+        $valid = $this->validar($request);
+        if (!$valid->fails()) {
+            Mensajero::create($request->all());
 
-        Mensajero::create($request->all());
-
-        return redirect()->route('mensajero.index')->with('success', 'Se creo correctamente el Mensajero');
+            return response()->json(["mensaje" => "Se creo con exito el mensajero"]);
+        } else {
+            return response()->json(['message' => "Error de validacion", "errors" => $valid->messages()], 400);
+        }
+        //return redirect()->route('mensajero.index')->with('success', 'Se creo correctamente el Mensajero');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -65,9 +53,11 @@ class MensajeroController extends Controller
     {
         $mensajero = Mensajero::find($id);
 
-        return view('mensajero.mensajeroEdit', [
+        return response()->json($mensajero);
+
+        /* return view('mensajero.mensajeroEdit', [
             'mensajero' => $mensajero
-        ]);
+        ]); */
     }
 
     /**
@@ -79,12 +69,17 @@ class MensajeroController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validar($request);
+        $valid = $this->validar($request);
+        if (!$valid->fails()) {
 
-        $mensajero = Mensajero::find($id);
-        $mensajero->update($request->all());
+            $mensajero = Mensajero::find($id);
+            $mensajero->update($request->all());
 
-        return redirect(route('mensajero.index'))->with('success', 'Se actualizo correctamente el Mensajero: '.$mensajero->nombre. ' '.$mensajero->apellido);
+            return response()->json(["mensaje" => "Se actualizo con exito el mensajero...!"]);
+        } else {
+            return response()->json(['message' => "Error de validacion", "errors" => $valid->messages()], 400);
+        }
+        //return redirect(route('mensajero.index'))->with('success', 'Se actualizo correctamente el Mensajero: '.$mensajero->nombre. ' '.$mensajero->apellido);
     }
 
     /**
@@ -103,7 +98,7 @@ class MensajeroController extends Controller
 
     public function validar(Request $request)
     {
-        $valid = $request->validate([
+        $valid = Validator::make($request->all(), [
             'documento_id' => 'required|min:5',
             'nombre' => 'required',
             'apellido' => 'required',
